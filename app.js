@@ -9,21 +9,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const SeleniumKit_1 = require("./comm/SeleniumKit");
+const CoinMarketCapSpider_1 = require("./crypto/cmc/CoinMarketCapSpider");
+const CryptoSymbol_1 = require("./crypto/cmc/CryptoSymbol");
 console.log('Hello world');
-//require('chromedriver');
-/*const mongo = require('mongodb').MongoClient;
+const mongo = require('mongodb').MongoClient;
 const url = "mongodb://localhost:27017/Test";
-
 mongo.connect(url, function (err, client) {
     if (err) {
         throw err;
     }
     console.log("Connected:" + client);
-});*/
+});
 /*
-const { Builder, By, Key, until } = require('selenium-webdriver');
-
+import { Builder, By, Key, until } from "selenium-webdriver";
+require('chromedriver');
 (async function example() {
     let driver = await new Builder().forBrowser('chrome').build();
     try {
@@ -41,22 +40,10 @@ const { Builder, By, Key, until } = require('selenium-webdriver');
         driver.quit();
     }
 })();*/
-let sk = SeleniumKit_1.SeleniumKit.getInstance();
-let { By, Key, until } = sk.getKit();
 (function example() {
     return __awaiter(this, void 0, void 0, function* () {
-        let driver = yield sk.buildBrowser();
-        try {
-            // Navigate to Url
-            yield driver.get('https://www.google.com');
-            // Enter text "cheese" and perform keyboard action "Enter"
-            yield driver.findElement(By.name('q')).sendKeys('cheese', Key.ENTER);
-            let firstResult = yield driver.wait(until.elementLocated(By.css('h3>div')), 10000);
-            console.log(yield firstResult.getAttribute('textContent'));
-        }
-        finally {
-            driver.quit();
-        }
+        let cmcs = new CoinMarketCapSpider_1.CoinMarketCapSpider(CryptoSymbol_1.CPSymbol.BTC);
+        yield cmcs.fetch();
     });
 })();
 //# sourceMappingURL=app.js.map

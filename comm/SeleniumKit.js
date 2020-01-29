@@ -9,16 +9,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const { Builder, By, Key, until } = require('selenium-webdriver');
+const selenium_webdriver_1 = require("selenium-webdriver");
+const typescript_string_operations_1 = require("typescript-string-operations");
 require('chromedriver');
 class SeleniumKit {
     getKit() {
-        return { By, Key, until };
+        return { By: selenium_webdriver_1.By, Key: selenium_webdriver_1.Key, until: selenium_webdriver_1.until };
     }
     buildBrowser() {
         return __awaiter(this, void 0, void 0, function* () {
-            let driver = yield new Builder().forBrowser('chrome').build();
+            let driver = yield new selenium_webdriver_1.Builder().forBrowser('chrome').build();
             return driver;
+        });
+    }
+    setAttribute(driver, slct, attr, val) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let temp = "document.querySelector('{0}').setAttribute('{1}','{2}')";
+            let exs = typescript_string_operations_1.String.Format(temp, slct, attr, val);
+            console.log("exs:" + exs);
+            return yield driver.executeScript(exs);
         });
     }
     static getInstance() {

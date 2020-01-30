@@ -1,7 +1,7 @@
 import { SeleniumKit } from "./comm/SeleniumKit";
 import { CoinMarketCapSpider } from "./crypto/cmc/CoinMarketCapSpider";
 import { CPSymbol } from "./crypto/cmc/CryptoSymbol";
-
+import { UntilsUtils } from 'bzk';
 
 console.log('Hello world');
 
@@ -34,6 +34,8 @@ require('chromedriver');
         driver.quit();
     }
 })();*/
+
+
 
 (async function example() {
     let cmcs = new CoinMarketCapSpider(CPSymbol.BTC);

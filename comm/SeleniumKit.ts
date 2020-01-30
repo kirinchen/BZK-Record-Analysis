@@ -1,18 +1,25 @@
 import { Builder, By, Key, until, ThenableWebDriver, WebDriver } from "selenium-webdriver";
 import { String, StringBuilder } from 'typescript-string-operations';
+import { Config } from 'bzk';
 require('chromedriver');
 
 export class SeleniumKit {
 
-    static instance: SeleniumKit;
+    config: Config;
+    driver: WebDriver;
+
+    public constructor(c: Config) {
+        this.config = c;
+    }
+
 
     public getKit() {
         return { By, Key, until };
     }
 
-    public async buildBrowser(): Promise<WebDriver> {
-        let driver = await new Builder().forBrowser('chrome').build();
-        return driver;
+    public async init() {
+        this.driver = await new Builder().forBrowser(this.config.get("",'chrome')).build();
+        
     }
 
     public async setAttribute(driver: WebDriver, slct: string, attr: string, val: any) {
@@ -23,11 +30,6 @@ export class SeleniumKit {
     }
 
 
-    static  getInstance() {
-        if (!this.instance) {
-            this.instance = new SeleniumKit();
-        }
-        return this.instance;
-    }
+
 
 }

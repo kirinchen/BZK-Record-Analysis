@@ -8,4 +8,5 @@ class CMCUtils {
     }
 }
 exports.CMCUtils = CMCUtils;
+CMCUtils.C_allStartAt = new Date(2013, 0, 1);
 //# sourceMappingURL=CMCUtils.js.map

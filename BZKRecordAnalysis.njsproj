@@ -47,6 +47,9 @@
     <TypeScriptCompile Include="comm\SeleniumKit.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="comm\SeleniumUtils.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="ConfigName.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>

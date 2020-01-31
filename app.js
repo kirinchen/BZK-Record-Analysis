@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const CoinMarketCapSpider_1 = require("./crypto/cmc/CoinMarketCapSpider");
 const CryptoSymbol_1 = require("./crypto/cmc/CryptoSymbol");
+const bzk_1 = require("bzk");
 console.log('Hello world');
 const mongo = require('mongodb').MongoClient;
 const url = "mongodb://localhost:27017/Test";
@@ -40,9 +41,10 @@ require('chromedriver');
         driver.quit();
     }
 })();*/
+let c = new bzk_1.Config({});
 (function example() {
     return __awaiter(this, void 0, void 0, function* () {
-        let cmcs = new CoinMarketCapSpider_1.CoinMarketCapSpider(CryptoSymbol_1.CPSymbol.BTC);
+        let cmcs = new CoinMarketCapSpider_1.CoinMarketCapSpider(c, CryptoSymbol_1.CPSymbol.BTC);
         yield cmcs.fetch();
     });
 })();

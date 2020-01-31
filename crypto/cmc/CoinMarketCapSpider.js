@@ -11,18 +11,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const CryptoSymbol_1 = require("./CryptoSymbol");
 const SeleniumKit_1 = require("../../comm/SeleniumKit");
-const sk = SeleniumKit_1.SeleniumKit.getInstance();
-const { By, Key, until } = sk.getKit();
+const { By, Key, until } = SeleniumKit_1.SeleniumKit.getKit();
 class CoinMarketCapSpider {
-    constructor(cb) {
+    constructor(c, cb) {
         this.symbol = CryptoSymbol_1.CPSymbol.BTC;
         this.symbol = cb;
+        this.sk = new SeleniumKit_1.SeleniumKit(c);
     }
     fetch() {
         return __awaiter(this, void 0, void 0, function* () {
-            let driver = yield sk.buildBrowser();
+            yield this.sk.init();
             try {
-                yield this.climb(driver);
+                yield this.climb();
             }
             catch (e) {
                 console.error(e);
@@ -32,19 +32,22 @@ class CoinMarketCapSpider {
             }
         });
     }
-    climb(driver) {
+    climb() {
         return __awaiter(this, void 0, void 0, function* () {
-            /*let cmcurl = CryptoSymbol.historicalUrl(this.symbol);
-            await driver.get(cmcurl);
+            let nowAt = new Date();
+            let cmcurl = CryptoSymbol_1.CryptoSymbol.historicalUrl(this.symbol, new Date(2020, 0, 1), nowAt);
+            yield this.sk.driver.get(cmcurl);
             //await driver.findElement(By.name('cmc-date-range-picker')).sendKeys('cheese', Key.ENTER);
-            let firstResult = await driver.wait(until.elementLocated(By.css('.cmc-table__table-wrapper-outer')), 10000);
-    
-            let cBtns = await driver.findElement(By.css('input[placeholder="Start date"]'));
-    
-            cBtns.clear();
-            let v = await cBtns.getAttribute('value');
-            console.log("usdBtn:" + v);
-            //await cBtns.sendKeys("Jan 29, 2018");*/
+            let firstResult = yield this.sk.driver.wait(until.elementLocated(By.css('.cmc-table__table-wrapper-outer')), 10000);
+            let trs = yield this.sk.driver.findElements(By.css('.cmc-table-row'));
+            console.log("trs size:" + trs.length);
+            trs.forEach(this.parseRow);
+        });
+    }
+    parseRow(e) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let s = yield e.getText();
+            console.log("row:" + s);
         });
     }
 }

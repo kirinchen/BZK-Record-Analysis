@@ -10,32 +10,45 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const selenium_webdriver_1 = require("selenium-webdriver");
-const typescript_string_operations_1 = require("typescript-string-operations");
+const ConfigName_1 = require("../ConfigName");
+const SeleniumUtils_1 = require("./SeleniumUtils");
 require('chromedriver');
 class SeleniumKit {
-    getKit() {
+    constructor(c) {
+        this.config = c;
+    }
+    get driver() { return this._driver; }
+    static getKit() {
         return { By: selenium_webdriver_1.By, Key: selenium_webdriver_1.Key, until: selenium_webdriver_1.until };
     }
-    buildBrowser() {
+    init() {
         return __awaiter(this, void 0, void 0, function* () {
-            let driver = yield new selenium_webdriver_1.Builder().forBrowser('chrome').build();
-            return driver;
+            this._driver = yield new selenium_webdriver_1.Builder().forBrowser(this.config.get(ConfigName_1.ConfigNameF.path(ConfigName_1.ConfigName.SeleniumBrowser), 'chrome')).build();
         });
     }
-    setAttribute(driver, slct, attr, val) {
+    findEditDom(slct) {
         return __awaiter(this, void 0, void 0, function* () {
-            let temp = "document.querySelector('{0}').setAttribute('{1}','{2}')";
-            let exs = typescript_string_operations_1.String.Format(temp, slct, attr, val);
-            console.log("exs:" + exs);
-            return yield driver.executeScript(exs);
+            let dom = yield this._driver.findElement(selenium_webdriver_1.By.css(slct));
+            return new EditDOM(slct, dom);
         });
     }
-    static getInstance() {
-        if (!this.instance) {
-            this.instance = new SeleniumKit();
-        }
-        return this.instance;
+    setAttribute(slct, attr, val) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield SeleniumUtils_1.SeleniumUtils.setAttribute(this._driver, slct, attr, val);
+        });
     }
 }
 exports.SeleniumKit = SeleniumKit;
+class EditDOM {
+    constructor(_s, _d) {
+        this.select = _s;
+        this.dom = _d;
+    }
+    setAttribute(attr, val) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield SeleniumUtils_1.SeleniumUtils.setAttribute(this.dom.getDriver(), this.select, attr, val);
+        });
+    }
+}
+exports.EditDOM = EditDOM;
 //# sourceMappingURL=SeleniumKit.js.map

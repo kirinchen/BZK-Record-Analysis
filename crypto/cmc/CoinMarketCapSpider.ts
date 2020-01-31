@@ -38,7 +38,7 @@ export class CoinMarketCapSpider {
 
     private async parseRow(e: WebElement) {
         let s = await e.getText();
-        console.log("row:" + s);
+        console.log("row!!:" + s);
         let tds = await e.findElements(By.css('div'));
 
     }

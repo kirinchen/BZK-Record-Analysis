@@ -12,7 +12,7 @@ mongo.connect(url, function (err, client) {
     if (err) {
         throw err;
     }
-    console.log("Connected:" + client);
+    console.log("Connected!!!:" + client);
 });
 /*
 import { Builder, By, Key, until } from "selenium-webdriver";

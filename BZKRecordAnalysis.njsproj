@@ -63,12 +63,7 @@
     <TypeScriptCompile Include="crypto\cmc\CryptoSymbol.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="test\TestCoinMarketCapSpider.ts">
-      <SubType>Code</SubType>
-      <TestFramework>Mocha</TestFramework>
-      <Publish>False</Publish>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="test\TestBase.ts">
+    <TypeScriptCompile Include="test\base.test.ts">
       <SubType>Code</SubType>
       <TestFramework>Mocha</TestFramework>
       <Publish>True</Publish>

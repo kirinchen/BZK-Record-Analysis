@@ -4,9 +4,9 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
     <Name>BZKRecordAnalysis</Name>
     <RootNamespace>BZKRecordAnalysis</RootNamespace>
-    <JavaScriptTestFramework>mocha</JavaScriptTestFramework>
+    <JavaScriptTestFramework>Jest</JavaScriptTestFramework>
     <SaveNodeJsSettingsInProjectFile>True</SaveNodeJsSettingsInProjectFile>
-    <JavaScriptTestRoot>test\</JavaScriptTestRoot>
+    <JavaScriptTestRoot>lib\test\</JavaScriptTestRoot>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -34,6 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="app.ts" />
+    <Content Include="jestconfig.json" />
     <Content Include="package.json" />
     <Content Include="README.md" />
     <Content Include="tsconfig.json" />
@@ -65,7 +66,7 @@
     </TypeScriptCompile>
     <TypeScriptCompile Include="test\base.test.ts">
       <SubType>Code</SubType>
-      <TestFramework>Mocha</TestFramework>
+      <TestFramework>jest</TestFramework>
       <Publish>True</Publish>
     </TypeScriptCompile>
   </ItemGroup>

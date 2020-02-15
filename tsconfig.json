@@ -5,9 +5,7 @@
     "declaration": true,
     "outDir": "./lib",
     "lib": [ "es6" ],
-    "sourceMap": true,
-    "noEmit": true,
-    "allowJs": true
+    "sourceMap": true
   },
   "exclude": [ "node_modules", "**/__tests__/*","lib" ]
 }

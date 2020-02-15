@@ -1,7 +1,7 @@
-import { SeleniumKit } from "./comm/SeleniumKit";
-import { CoinMarketCapSpider } from "./crypto/cmc/CoinMarketCapSpider";
-import { CPSymbol } from "./crypto/cmc/CryptoSymbol";
+
 import { UntilsUtils, Config } from 'bzk';
+import { DBSaver } from './db/DBSaver';
+import { ZonedDateTime } from '@js-joda/core';
 
 console.log('Hello world');
 
@@ -35,12 +35,21 @@ require('chromedriver');
     }
 })();*/
 
-let c: Config = new Config({});
+
 
 (async function example() {
-    let cmcs = new CoinMarketCapSpider(c,CPSymbol.BTC);
-    await cmcs.fetch();
+    let c = new Config({});
+    let dbs = new DBSaver(c);
+    await dbs.connect();
+    dbs.add([
+        {
+            at: new Date(),
+            hash: "qqq",
+            source:"xxx"
+        }
+    ]);
 })();
+
 
 
 

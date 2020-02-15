@@ -40,28 +40,14 @@
     <Content Include="tsconfig.json" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="crypto\" />
-    <Folder Include="comm\" />
-    <Folder Include="crypto\cmc\" />
+    <Folder Include="db\" />
     <Folder Include="test\" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="comm\SeleniumKit.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="comm\SeleniumUtils.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
     <TypeScriptCompile Include="ConfigName.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="crypto\cmc\CMCUtils.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="crypto\cmc\CoinMarketCapSpider.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="crypto\cmc\CryptoSymbol.ts">
+    <TypeScriptCompile Include="db\DBSaver.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="test\base.test.ts">

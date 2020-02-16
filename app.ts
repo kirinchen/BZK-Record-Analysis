@@ -2,6 +2,8 @@
 import { UntilsUtils, Config } from 'bzk';
 import { DBSaver } from './db/DBSaver';
 import { ZonedDateTime } from '@js-joda/core';
+import { DBUtils } from './db/DBUtils';
+import { DBQueryer } from './db/DBQueryer';
 
 console.log('Hello world');
 
@@ -43,12 +45,18 @@ require('chromedriver');
     await dbs.connect();
     dbs.add([
         {
-            at: new Date(),
+            at: DBUtils.toDateString( new Date()),
             hash: "qqq",
-            source:"xxx"
+            source: "xxx",
         }
     ]);
+
+    let dbq = new DBQueryer(c);
+    await dbq.findAt();
 })();
+
+
+
 
 
 

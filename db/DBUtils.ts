@@ -25,5 +25,11 @@ export class DBUtils {
         return convert(ldt).toDate();
     }
 
+    public static vaildObj(obj: object) {
+        if (!(obj['at'] instanceof Date)) throw new Error("at not Date");
+        if (typeof obj['hash'] !== 'string') throw new Error("hash not string");
+        if (typeof obj['source'] !== 'string') throw new Error("source not string");
+    }
+
 }
 

@@ -52,7 +52,8 @@ require('chromedriver');
     ]);
 
     let dbq = new DBQueryer(c);
-    await dbq.findAt();
+    let os = await dbq.findBetweenAt(new Date(2020, 0, 1), new Date(2020, 3, 3));
+    console.log("os:" + JSON.stringify(os));
 })();
 
 

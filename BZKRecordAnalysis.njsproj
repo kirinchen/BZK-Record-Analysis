@@ -41,9 +41,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="db\" />
+    <Folder Include="build-in\" />
     <Folder Include="test\" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="build-in\BtcQuote.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="ConfigName.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -57,6 +61,9 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="db\DBUtils.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="AtRecord.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="test\base.test.ts">

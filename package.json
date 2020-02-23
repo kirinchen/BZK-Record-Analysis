@@ -23,7 +23,7 @@
     "@js-joda/locale": "^3.1.0",
     "@js-joda/timezone": "^2.2.0",
     "bzk": "0.0.7",
-    "bzk-proxy-api": "0.0.1",
+    "bzk-proxy-api": "0.0.4",
     "dateformat": "^3.0.3",
     "mongodb": "^3.5.2",
     "sha1": "^1.1.1",

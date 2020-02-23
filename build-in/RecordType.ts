@@ -1,11 +1,11 @@
-export enum RecordType {
+export  enum RecordType {
     BtcQuote
 }
 
 export class RTF {
 
     public static toSymbol(e: RecordType): string {
-        if (e === RecordType.BtcQuote) "BtcQuote";
+        if (e == RecordType.BtcQuote) return "BtcQuote";
         throw new Error("Not Support " + e);
     }
 

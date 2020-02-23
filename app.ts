@@ -53,7 +53,7 @@ require('chromedriver');
     ]);*/
 
     let bq = new BtcQuote(c);
-    bq.backup(new Date(2020, 2, 10), new Date(2020, 3, 3));
+    bq.backup(new Date(2020, 1, 10), new Date(2020, 3, 3));
 
     let dbq = new DBQueryer(c);
     let os = await dbq.findBetweenAt(new Date(2020, 0, 1), new Date(2020, 3, 3));

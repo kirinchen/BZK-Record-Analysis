@@ -5,12 +5,6 @@ import { ZonedDateTime, ZoneId, DateTimeFormatter } from '@js-joda/core'
 import { DBer } from "./DBer";
 import { DBUtils } from "./DBUtils";
 
-export interface AtObj {
-    hash: string;
-    at: any;
-    source: string;
-}
-
 export class DBSaver extends DBer {
 
 

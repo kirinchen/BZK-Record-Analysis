@@ -1,5 +1,8 @@
 import { CoinMarketCapSpider, CPSymbol } from 'bzk-proxy-api';
 import { AtRecord } from '../AtRecord';
+import { DBUtils } from '../db/DBUtils';
+import { BISF, BuildInSrc } from './BuildInSrc';
+import { RTF, RecordType } from './RecordType';
 
 
 export class BtcQuote extends AtRecord {
@@ -11,10 +14,20 @@ export class BtcQuote extends AtRecord {
 
         await cms.fetch();
 
-        cms.getData();
+        let ds= cms.getData().map(d => {
+            let ans= {
+                at: DBUtils.zonedDateTime2Date(d.date),
+                hash: DBUtils.toHash(d),
+                source: BISF.toSymbol(BuildInSrc.CMC),
+                type: RTF.toSymbol(RecordType.BtcQuote),
+            }
+            return DBUtils.appendObj(ans, d, k => {
+                if (k === 'date') return true;
+                return false;
+            });
+        });
 
-        TODO
-
+        this.saver.add(ds);
     }
 
 }

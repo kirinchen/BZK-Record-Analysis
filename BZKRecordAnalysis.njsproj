@@ -48,6 +48,12 @@
     <TypeScriptCompile Include="build-in\BtcQuote.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="build-in\BuildInSrc.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="build-in\RecordType.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="ConfigName.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>

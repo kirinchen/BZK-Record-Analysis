@@ -26,6 +26,7 @@
     "bzk-proxy-api": "0.0.1",
     "dateformat": "^3.0.3",
     "mongodb": "^3.5.2",
+    "sha1": "^1.1.1",
     "typescript-string-operations": "^1.3.2"
   }
 }

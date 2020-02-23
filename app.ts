@@ -4,6 +4,7 @@ import { DBSaver } from './db/DBSaver';
 import { ZonedDateTime } from '@js-joda/core';
 import { DBUtils } from './db/DBUtils';
 import { DBQueryer } from './db/DBQueryer';
+import { BtcQuote } from './build-in/BtcQuote';
 
 console.log('Hello world');
 
@@ -41,15 +42,18 @@ require('chromedriver');
 
 (async function example() {
     let c = new Config({});
-    let dbs = new DBSaver(c);
+    /*let dbs = new DBSaver(c);
     await dbs.connect();
     dbs.add([
         {
-            at: DBUtils.toDateString( new Date()),
+            at: DBUtils.toDate( new Date()),
             hash: "qqq",
             source: "xxx",
         }
-    ]);
+    ]);*/
+
+    let bq = new BtcQuote(c);
+    bq.backup(new Date(2020, 2, 10), new Date(2020, 3, 3));
 
     let dbq = new DBQueryer(c);
     let os = await dbq.findBetweenAt(new Date(2020, 0, 1), new Date(2020, 3, 3));

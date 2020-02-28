@@ -74,7 +74,7 @@
     </TypeScriptCompile>
     <TypeScriptCompile Include="test\base.test.ts">
       <SubType>Code</SubType>
-      <TestFramework>jest</TestFramework>
+      <TestFramework>Jest</TestFramework>
       <Publish>True</Publish>
     </TypeScriptCompile>
   </ItemGroup>

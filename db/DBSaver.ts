@@ -8,12 +8,20 @@ import { DBUtils } from "./DBUtils";
 export class DBSaver extends DBer {
 
 
-    public async add(atobjs: object[]) {
+    public async add(atobjs: object[]): Promise<any> {
         let collection = await this.initCollection();
         atobjs.forEach(o => DBUtils.vaildObj(o));
-        collection.insertMany(atobjs, function (err, result) {
-            console.log("err:" + err + " result:" + result);
+        return new Promise<any>((rev, rej) => {
+            collection.insertMany(atobjs, function (err, result) {
+                if (err) {
+                    rej(err);
+                    return;
+                }
+                rev(result);
+                console.log("err:" + err + " result:" + result);
+            });
         });
+  
     }
 
 

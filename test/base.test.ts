@@ -1,3 +1,6 @@
+import { Config } from "bzk";
+import { DBSaver } from "../db/DBSaver";
+import { RecordObj } from "../AtRecord";
 
 /*
 describe("Test Suite 1", () => {
@@ -15,6 +18,29 @@ describe("Test Suite 1", () => {
 
 });*/
 
-test('CryptoSymbol Test', () => {
+let c = new Config({});
+
+
+
+describe("Test Suite 1",  () => {
+
+    it("Insert DB", async () => {
+
+        let dbs = new DBSaver(c);
+        await dbs.add([
+            RecordObj.gen({
+                at: new Date(),
+                hash: "aaa",
+                source: "xxx",
+                type: "ccc"
+            }).obj
+        ]);
+
+    });
+
+    it("Test A", () => {
+        console.log("QQ");
+    });
+
 
 });

@@ -7,6 +7,14 @@ import { RTF, RecordType } from './RecordType';
 
 export class BtcQuote extends AtRecord {
 
+    public async syncUpToDate(startAt: Date) {
+        await this.syncTobackup(startAt, new Date());
+    }
+
+    public async syncTobackup(startAt: Date, endAt: Date) {
+
+    }
+
     public async backup(startAt: Date, endAt: Date) {
         let cms = await new CoinMarketCapSpider(this.config, CPSymbol.BTC)
             .setStartAt(startAt)

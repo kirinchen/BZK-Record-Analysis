@@ -5,6 +5,7 @@ import { ZonedDateTime } from '@js-joda/core';
 import { DBUtils } from './db/DBUtils';
 import { DBQueryer } from './db/DBQueryer';
 import { BtcQuote } from './build-in/BtcQuote';
+import { RecordQuery } from './db/RecordQuery';
 
 console.log('Hello world');
 
@@ -52,12 +53,14 @@ require('chromedriver');
         }
     ]);*/
 
-    let bq = new BtcQuote(c);
-    bq.backup(new Date(2020, 1, 10), new Date(2020, 3, 3));
+    //let bq = new BtcQuote(c);
+    //bq.backup(new Date(2020, 1, 10), new Date(2020, 3, 3));
 
     let dbq = new DBQueryer(c);
-    let os = await dbq.findBetweenAt(new Date(2020, 0, 1), new Date(2020, 3, 3));
-    console.log("os:" + JSON.stringify(os.toArray()));
+    //let os = await dbq.findBetweenAt(new Date(2020, 0, 1), new Date(2020, 3, 3));
+    let os = await dbq.find(RecordQuery.q().startEnd(new Date(2020, 0, 1), new Date(2020, 3, 3)));
+    let list = await os.toArray();
+    console.log("os:" + JSON.stringify(list));
 })();
 
 

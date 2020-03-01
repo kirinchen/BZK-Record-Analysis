@@ -1,4 +1,5 @@
 import { DateTimeFormatter, ZonedDateTime, convert } from "@js-joda/core";
+import { RObjKey } from "./RecordQuery";
 let sha1= require('sha1')
 
 export class DBUtils {
@@ -27,10 +28,10 @@ export class DBUtils {
     }
 
     public static vaildObj(obj: object) {
-        if (!(obj['at'] instanceof Date)) throw new Error("at not Date");
-        if (typeof obj['hash'] !== 'string') throw new Error("hash not string");
-        if (typeof obj['source'] !== 'string') throw new Error("source not string");
-        if (typeof obj['type'] !== 'string') throw new Error("type not string");
+        if (!(obj[RObjKey.at] instanceof Date)) throw new Error("at not Date");
+        if (typeof obj[RObjKey.hash] !== 'string') throw new Error("hash not string");
+        if (typeof obj[RObjKey.source] !== 'string') throw new Error("source not string");
+        if (typeof obj[RObjKey.type] !== 'string') throw new Error("type not string");
 
     }
 

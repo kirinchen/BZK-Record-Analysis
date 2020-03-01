@@ -72,6 +72,9 @@
     <TypeScriptCompile Include="AtRecord.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="db\RecordQuery.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="test\base.test.ts">
       <SubType>Code</SubType>
       <TestFramework>Jest</TestFramework>

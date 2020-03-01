@@ -2,6 +2,7 @@ import { Config } from "bzk";
 import { DBSaver } from "./db/DBSaver";
 import { DBQueryer } from "./db/DBQueryer";
 import { DBUtils } from "./db/DBUtils";
+import { RObjKey } from "./db/RecordQuery";
 
 export interface SetRecord {
 
@@ -21,27 +22,25 @@ export class RecordObj {
         this.obj = o;
     }
 
-    
-
     public put(k: string, v: any): RecordObj {
         this.obj[k] = v;
         return this;
     }
     
     public get at(): Date {
-        return this.obj['at'];
+        return this.obj[RObjKey.at];
     }
 
     public get hash(): string {
-        return this.obj['hash'];
+        return this.obj[RObjKey.hash];
     }
 
     public get source(): string {
-        return this.obj['source'];
+        return this.obj[RObjKey.source];
     }
 
     public get type(): string {
-        return this.obj['type'];
+        return this.obj[RObjKey.type];
     }
 
     public static gen(_o: SetRecord): RecordObj {

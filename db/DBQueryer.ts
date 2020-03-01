@@ -1,5 +1,6 @@
 import { DBer } from "./DBer";
 import { privateDecrypt } from "crypto";
+import { RecordQuery } from "./RecordQuery";
 
 export class Cursor {
 
@@ -9,33 +10,36 @@ export class Cursor {
         this.c = _c;
     }
 
-    public count(): number {
-        return this.c.count();
+    public async count(): Promise< number> {
+        return await this.c.count();
     }
 
-    public toArray(): object[] {
-        this.c.skip(0);
-        let ans: object[] = [];
-        this.c.each(function (err, doc) {
-            if (err) {
-                throw new Error(err);
-            } else {
-                console.log('Fetched:', doc);
-                if (doc !== null) {
-                    ans.push(doc);
+    public async toArray(): Promise<object[]> {
+        return new Promise<object[]>((rev, rej) => {
+            this.c.skip(0);
+            let ans: object[] = [];
+            this.c.each(function (err, doc) {
+                if (err) {
+                    rej(err);
                 } else {
-                    return ans;
+                    console.log('Fetched:', doc);
+                    if (doc !== null) {
+                        ans.push(doc);
+                    } else {
+                        rev(ans);
+                    }
                 }
-            }
+            });
         });
-        return ans;
+
+
     }
 
 }
 
 export class DBQueryer extends DBer {
 
-    public async findBetweenAt(start: Date, end: Date): Promise<Cursor> {
+    /*public async findBetweenAt(start: Date, end: Date): Promise<Cursor> {
         let col = await this.initCollection();
         let cursor = col.find({
             "at": {
@@ -43,18 +47,27 @@ export class DBQueryer extends DBer {
                 $lt: end,
             }
         });
-        //Skip specified records. 0 for skipping 0 records.
+        return new Cursor(cursor);
+    }*/
+
+    public async find(rq: RecordQuery): Promise<Cursor> {
+        let col = await this.initCollection();
+        let cursor = col.find(rq.build()); 
         return new Cursor(cursor);
     }
 
-    public async listLost(start: Date, end: Date, gapSnc: number): Promise<{ st: Date, ed: Date }[]> {
+    
+
+    public async listLost(start: Date, end: Date, type: string, gapSnc: number): Promise<{ st: Date, ed: Date }[]> {
         if (gapSnc <= 0) throw new Error(gapSnc +" gapSnc <=0 ");
         let ans : { st: Date, ed: Date }[]=[];
         let dStart: Date = start;
         while (end > dStart) {
             let dend: Date = new Date(dStart.setSeconds(dStart.getSeconds() + gapSnc));
-            let cos = await this.findBetweenAt(dStart, dend);
-            if (cos.count() <= 0) {
+            //let cos = await this.findBetweenAt(dStart, dend);
+            let cos = await this.find(RecordQuery.q().startEnd(dStart, dend).type(type));
+            let count = await cos.count();
+            if (count <= 0) {
                 ans.push({
                     st: dStart,
                     ed: dend

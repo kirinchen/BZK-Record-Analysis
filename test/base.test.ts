@@ -3,35 +3,26 @@ import { DBSaver } from "../db/DBSaver";
 import { RecordObj } from "../AtRecord";
 import { DBQueryer, Cursor } from "../db/DBQueryer";
 import { RecordQuery } from "../db/RecordQuery";
-
-/*
-describe("Test Suite 1", () => {
-    it("Test A", () => {
-        let bc = CryptoSymbol.fullName(CPSymbol.BTC);
-        assert.equal(bc, "bitcoin");
-        let sd = new Date(2017, 0, 1);
-        let ed = new Date(2018, 10, 1);
-        let cmcurl = CryptoSymbol.historicalUrl(CPSymbol.BTC, sd, ed);
-        console.log("cmcurl:" + cmcurl);
-        console.log("sd:" + sd+" ed:"+ed);
-        assert.equal(cmcurl, "https://coinmarketcap.com/currencies/bitcoin/historical-data/?start=20170101&end=20181101");
-    });
-
-
-});*/
-
 let c = new Config({});
+let dbs = new DBSaver(c);
 
-test('Insert DB', async () => {
-    let dbs = new DBSaver(c);
+let createRow = async (i: number) => {
+    let now = new Date();
+    let is = i * 60 * 60 * 24;
+    let sd = new Date(now.setSeconds(now.getSeconds() + is));
     await dbs.add([
         RecordObj.gen({
-            at: new Date(),
-            hash: "aaa",
+            at: sd,
+            hash: "h" ,
             source: "xxx",
             type: "ccc"
         }).obj
     ]);
+};
+
+test('Insert DB', async () => {
+  
+    await createRow(0);
 });
 
 
@@ -47,4 +38,17 @@ test('Base Query', async () => {
     console.log("count:" + arr.length);
     expect(arr.length > 0).toBeTruthy()
 });
+
+test('Jump Insert', async () => {
+    for (let i = 0; i < 100;i++) {
+        
+        if ((i > 30 && i < 50) || (i > 70 && i < 90)) {
+            console.log("lost i:"+i);
+        } else {
+            await createRow(i);
+        }
+    }
+});
+
+
 

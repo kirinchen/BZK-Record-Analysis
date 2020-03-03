@@ -62,17 +62,24 @@ export class DBQueryer extends DBer {
         if (gapSnc <= 0) throw new Error(gapSnc +" gapSnc <=0 ");
         let ans : { st: Date, ed: Date }[]=[];
         let dStart: Date = start;
+        let rStart, rEnd: Date;
         while (end > dStart) {
             let dend: Date = new Date(dStart.setSeconds(dStart.getSeconds() + gapSnc));
             //let cos = await this.findBetweenAt(dStart, dend);
             let cos = await this.find(RecordQuery.q().startEnd(dStart, dend).type(type));
             let count = await cos.count();
             if (count <= 0) {
+                if (!rStart) rStart = dStart;
+                rEnd = dend;
+            } else if (rStart && rEnd) {
                 ans.push({
-                    st: dStart,
-                    ed: dend
+                    st: rStart,
+                    ed: rEnd
                 });
+                rStart = null;
+                rEnd = null;
             }
+
         }
         return ans;
     }

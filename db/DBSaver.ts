@@ -18,7 +18,6 @@ export class DBSaver extends DBer {
                     return;
                 }
                 rev(result);
-                console.log("err:" + err + " result:" + result);
             });
         });
   

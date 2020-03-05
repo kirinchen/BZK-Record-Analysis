@@ -64,21 +64,29 @@ export class DBQueryer extends DBer {
         let dStart: Date = start;
         let rStart, rEnd: Date;
         while (end > dStart) {
-            let dend: Date = new Date(dStart.setSeconds(dStart.getSeconds() + gapSnc));
+            let _dStart = new Date(dStart);
+            let dend: Date = new Date(_dStart.setSeconds(_dStart.getSeconds() + gapSnc));
+            //console.log(dend.toISOString() + " : " + dStart.toISOString());
             //let cos = await this.findBetweenAt(dStart, dend);
             let cos = await this.find(RecordQuery.q().startEnd(dStart, dend).type(type));
             let count = await cos.count();
             if (count <= 0) {
-                if (!rStart) rStart = dStart;
-                rEnd = dend;
-            } else if (rStart && rEnd) {
-                ans.push({
-                    st: rStart,
-                    ed: rEnd
-                });
-                rStart = null;
-                rEnd = null;
+                if (!rStart) rStart =  new Date( dStart);
+                rEnd = new Date( dend);
+            } else {
+               
+            
+                if (rStart != null && rEnd != null) {
+                    ans.push({
+                        st: rStart,
+                        ed: rEnd
+                    });
+                    rStart = null;
+                    rEnd = null;
+                }
+
             }
+            dStart = dend;
 
         }
         return ans;

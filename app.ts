@@ -58,9 +58,16 @@ require('chromedriver');
 
     let dbq = new DBQueryer(c);
     //let os = await dbq.findBetweenAt(new Date(2020, 0, 1), new Date(2020, 3, 3));
-    let os = await dbq.find(RecordQuery.q().startEnd(new Date(2020, 0, 1), new Date(2020, 3, 3)));
+    /*let os = await dbq.find(RecordQuery.q().startEnd(new Date(2020, 0, 1), new Date(2020, 3, 3)));
     let list = await os.toArray();
-    console.log("os:" + JSON.stringify(list));
+    console.log("os:" + JSON.stringify(list));*/
+
+    let ar = await dbq.listLost(new Date('2020-03-05T14:09:04.722Z'), new Date('2020-06-12T14:09:04.825Z'), "ccc", 60 * 60 * 24);
+
+    //let cos = await dbq.find(RecordQuery.q().startEnd(new Date('2020-03-05T14:09:04.722Z'), new Date('2020-06-12T14:09:04.825Z')).type("ccc"));
+    //let coss = await cos.toArray();
+    console.log(JSON.stringify(ar));
+    console.log(ar.length);
 })();
 
 

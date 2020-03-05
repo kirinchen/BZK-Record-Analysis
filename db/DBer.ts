@@ -23,9 +23,7 @@ export class DBer {
             await this.connect();
         }
         let _db = this.client.db(this.db);
-        console.log("client:" + this.client + " _db:" + _db);
         let collection = _db.collection(this.collectionName);
-        console.log("collection:" + collection);
         return collection;
     }
 
@@ -46,7 +44,6 @@ export class DBer {
                     rej(err);
                     return;
                 }
-                console.log("Connected!!!:" + client);
                 rev(client);
             });
 

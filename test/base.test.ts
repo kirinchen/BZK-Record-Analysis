@@ -18,6 +18,7 @@ let createRow = async (i: number) => {
             type: "ccc"
         }).obj
     ]);
+    return sd;
 };
 
 test('Insert DB', async () => {
@@ -40,15 +41,28 @@ test('Base Query', async () => {
 });
 
 test('Jump Insert', async () => {
+    let st: Date;
+    let ed: Date;
     for (let i = 0; i < 100;i++) {
-        
         if ((i > 30 && i < 50) || (i > 70 && i < 90)) {
-            console.log("lost i:"+i);
+            //console.log("lost i:"+i);
         } else {
-            await createRow(i);
+            let d = await createRow(i);
+            if (st == null) st = d;
+            ed = d;
+            console.log(st.toISOString() + "_" + ed.toISOString());
         }
     }
+    let dbq = new DBQueryer(c);
+    console.log(st.toISOString() + "  !!!!  " + ed.toISOString());
+    let ar = await dbq.listLost(st, ed, "ccc", 60 * 60 * 24);
+    expect(ar.length > 0).toBeTruthy();
+    console.log(JSON.stringify(ar));
 });
+
+
+
+
 
 
 
